@@ -1,0 +1,755 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="前端," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="提高动画的优化不得不提及浏览器是如何渲染一个页面。在从服务器中拿到数据后，浏览器会先做解析三类东西：
+
+解析html,xhtml,svg这三类文档，形成dom树。
+解析css，产生css rule tree。
+解析js，js会通过api来操作dom tree和css rule tree。
+
+解析完成之后，浏览器引擎会通过dom tree和css rule tree来构建rendering tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端动画优化">
+<meta property="og:url" content="http://yoursite.com/2017/03/23/前端动画优化/index.html">
+<meta property="og:site_name" content="第二人生">
+<meta property="og:description" content="提高动画的优化不得不提及浏览器是如何渲染一个页面。在从服务器中拿到数据后，浏览器会先做解析三类东西：
+
+解析html,xhtml,svg这三类文档，形成dom树。
+解析css，产生css rule tree。
+解析js，js会通过api来操作dom tree和css rule tree。
+
+解析完成之后，浏览器引擎会通过dom tree和css rule tree来构建rendering tree">
+<meta property="og:updated_time" content="2017-03-23T07:26:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端动画优化">
+<meta name="twitter:description" content="提高动画的优化不得不提及浏览器是如何渲染一个页面。在从服务器中拿到数据后，浏览器会先做解析三类东西：
+
+解析html,xhtml,svg这三类文档，形成dom树。
+解析css，产生css rule tree。
+解析js，js会通过api来操作dom tree和css rule tree。
+
+解析完成之后，浏览器引擎会通过dom tree和css rule tree来构建rendering tree">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/23/前端动画优化/"/>
+
+
+
+
+
+  <title> 前端动画优化 | 第二人生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">第二人生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">如果一生只能做好一件事情,我希望有第二人生</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/23/前端动画优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="第二人生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                前端动画优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-23T12:35:21+08:00">
+                2017-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>提高动画的优化不得不提及浏览器是如何渲染一个页面。在从服务器中拿到数据后，浏览器会先做解析三类东西：</p>
+<ul>
+<li>解析html,xhtml,svg这三类文档，形成dom树。</li>
+<li>解析css，产生css rule tree。</li>
+<li>解析js，js会通过api来操作dom tree和css rule tree。</li>
+</ul>
+<p>解析完成之后，浏览器引擎会通过dom tree和css rule tree来构建rendering tree：</p>
+<ul>
+<li>rendering tree和dom tree并不完全相同，例如：<head></head> 或 display:none 的东西就不会放在渲染树中。</li>
+<li>css rule tree主要是完成匹配，并把css rule附加给rendering tree的每个element。</li>
+</ul>
+<p>在渲染树构建完成后，</p>
+<ul>
+<li>浏览器会对这些元素进行定位和布局，这一步也叫做reflow或者layout。</li>
+<li>浏览器绘制这些元素的样式，颜色，背景，大小及边框等，这一步也叫做repaint。</li>
+<li>然后浏览器会将各层的信息发送给GPU，GPU会将各层合成；显示在屏幕上。</li>
+</ul>
+<p>如上所说，渲染树构建完成后；浏览器要做的步骤：<br>reflow——》repaint——》composite</p>
+<p>明白浏览器的渲染原理，我们尝试来对动画进行一些优化：</p>
+<ul>
+<li>避免浏览器reflow和repaint</li>
+<li>优化GPU动画</li>
+</ul>
+<h2 id="避免浏览器reflow和repaint"><a href="#避免浏览器reflow和repaint" class="headerlink" title="避免浏览器reflow和repaint"></a>避免浏览器reflow和repaint</h2><p>reflow和repaint都是耗费浏览器性能的操作，这两者尤以reflow为甚；因为每次reflow，浏览器都要重新计算每个元素的形状和位置。<br>下面是一些针对reflow和repaint的最佳实践：</p>
+<ul>
+<li><p>js代码中不要获取元素的宽高值，应将其缓存</p>
+</li>
+<li><p>不要一条一条地修改dom的样式，尽量使用className一次修改。</p>
+</li>
+<li><p>将dom离线后修改<br>使用documentFragment对象在内存里操作dom。<br>先把dom节点display:none;（会触发一次reflow）。然后做大量的修改后，再把它显示出来。<br>clone一个dom节点在内存里，修改之后；与在线的节点相替换。</p>
+</li>
+<li><p>不要使用table布局，一个小改动会造成整个table的重新布局。</p>
+</li>
+<li><p>transform和opacity只会引起合成，不会引起布局和重绘。</p>
+</li>
+</ul>
+<h2 id="优化GPU动画"><a href="#优化GPU动画" class="headerlink" title="优化GPU动画"></a>优化GPU动画</h2><h3 id="只用GPU动画"><a href="#只用GPU动画" class="headerlink" title="只用GPU动画"></a>只用GPU动画</h3><p>现代浏览器都会用GPU参与绘制，我们所要做的就是限制CPU参与动画绘制。<br>如页面中有A和B两个元素，它们有absolute和z-index属性，我们将A元素使用left属性，做一个移动动画：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">  #a, #b &#123;</div><div class="line">   position: absolute;</div><div class="line">   width: 25px;</div><div class="line">   height: 25px;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  #a &#123;</div><div class="line">   left: 10px;</div><div class="line">   top: 10px;</div><div class="line">   z-index: 2;</div><div class="line">   animation: move 1s linear;</div><div class="line">   background-color: red;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  #b &#123;</div><div class="line">   left: 50px;</div><div class="line">   top: 50px;</div><div class="line">   z-index: 1;</div><div class="line">   background-color: blue;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @keyframes move &#123;</div><div class="line">   from &#123; left: 30px; &#125;</div><div class="line">   to &#123; left: 100px; &#125;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"a"</span>&gt;</span>A<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"b"</span>&gt;</span>B<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在这个例子中，对于动画的每一帧；浏览器会计算元素的几何形状，渲染新状态的图像，并把它们发送给GPU。<br>如果CPU在执行耗时的js代码，动画会有一些卡顿，要知道，js线程和UI线程是互斥的。<br>那如果我们使用transform代替left动画呢？</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">#a, #b &#123;</div><div class="line"> position: absolute;</div><div class="line"> width: 25px;</div><div class="line"> height: 25px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#a &#123;</div><div class="line"> left: 10px;</div><div class="line"> top: 10px;</div><div class="line"> z-index: 2;</div><div class="line"> animation: move 1s linear;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#b &#123;</div><div class="line"> left: 50px;</div><div class="line"> top: 50px;</div><div class="line"> z-index: 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@keyframes move &#123;</div><div class="line"> from &#123; transform: translateX(0); &#125;</div><div class="line"> to &#123; transform: translateX(70px); &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"a"</span>&gt;</span>A<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"b"</span>&gt;</span>B<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>浏览器在动画执行之前就知道动画如何开始和结束，因为浏览器没有看到需要reflow和repaint的操作；浏览器就会画两张图像作为复合层，一张是A图像，一张是B图像和整个页面。并将他们的动画参数一起传入GPU。动画的每一帧都不需要CPU参与。<br>GPU是在一个独立的线程中绘制图像的，所以即便js代码在执行，也丝毫不会影响动画。</p>
+<p>我们看到这里重要的是复合层，它是高效绘制的关键，将需要动画的元素提升为一个layer，即便需要repaint，也只会repaint这个layer，不会repaint整个页面。<br>以下是浏览器会提升一个元素为layer的条件：</p>
+<ul>
+<li>3d或透视变换css属性，例如translate3d,translateZ等等（js一般通过这种方式，使元素获得复合层）<video><iframe><canvas><webgl>等元素。</webgl></canvas></iframe></video></li>
+<li>混合插件（如flash）。</li>
+<li>元素自身的 opacity和transform 做 CSS 动画。</li>
+<li>拥有css过滤器的元素。</li>
+<li>使用will-change属性。</li>
+<li>position:fixed。</li>
+<li>元素有一个 z-index 较低且包含一个复合层的兄弟元素(换句话说就是该元素在复合层上面渲染)</li>
+</ul>
+<h3 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h3><p>使用GPU动画需要发送多张渲染层的图像给GPU，GPU也需要缓存它们以便于后续动画的使用。</p>
+<p>一个渲染层，需要多少内存占用？为了便于理解，举一个简单的例子；一个宽、高都是300px的纯色图像需要多少内存？</p>
+<p>300 300 4 = 360000字节，即360kb。这里乘以4是因为，每个像素需要四个字节计算机内存来描述。</p>
+<p>假设我们做一个轮播图组件，轮播图有10张图片；为了实现图片间平滑过渡的交互；为每个图像添加了will-change:transform。这将提升图像为复合层，它将多需要19mb的空间。800 600 4 * 10 = 1920000。</p>
+<p>仅仅是一个轮播图组件就需要19m的额外空间！</p>
+<p>而且，还记得上面列举的提升一个元素为layer的条件，其中有一点就是元素有一个 z-index 较低且包含一个复合层的兄弟元素。居一个例子就是上面的AB两个元素运动，如果B发生动画并提升为一个layer，即便A元素上面也不做，浏览器也会将它提升为一个layer，因为它符合上面列举的最后一条，元素有一个 z-index 较低且包含一个复合层的兄弟元素。这就是隐式合成。隐式合成增加了layer数量，进而增大了内存占用<br>以下列举了GPU绘制优化的tip：</p>
+<ul>
+<li>避免浏览器的隐式合成。</li>
+<li>减小复合层的尺寸5%——10%，然后使用scale将它们放大。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/21/用karma-mocha-chai测试前端代码/" rel="next" title="用karma+mocha+chai测试前端代码">
+                <i class="fa fa-chevron-left"></i> 用karma+mocha+chai测试前端代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/23/index1/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#避免浏览器reflow和repaint"><span class="nav-number">1.</span> <span class="nav-text">避免浏览器reflow和repaint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化GPU动画"><span class="nav-number">2.</span> <span class="nav-text">优化GPU动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#只用GPU动画"><span class="nav-number">2.1.</span> <span class="nav-text">只用GPU动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存优化"><span class="nav-number">2.2.</span> <span class="nav-text">内存优化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
