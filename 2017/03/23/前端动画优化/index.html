@@ -105,7 +105,7 @@
 解析js，js会通过api来操作dom tree和css rule tree。
 
 解析完成之后，浏览器引擎会通过dom tree和css rule tree来构建rendering tree">
-<meta property="og:updated_time" content="2017-03-23T07:26:55.000Z">
+<meta property="og:updated_time" content="2017-04-03T03:21:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端动画优化">
 <meta name="twitter:description" content="提高动画的优化不得不提及浏览器是如何渲染一个页面。在从服务器中拿到数据后，浏览器会先做解析三类东西：
@@ -219,16 +219,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -280,7 +270,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/23/前端动画优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Hyde">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -392,7 +382,7 @@
 <p>浏览器在动画执行之前就知道动画如何开始和结束，因为浏览器没有看到需要reflow和repaint的操作；浏览器就会画两张图像作为复合层，一张是A图像，一张是B图像和整个页面。并将他们的动画参数一起传入GPU。动画的每一帧都不需要CPU参与。<br>GPU是在一个独立的线程中绘制图像的，所以即便js代码在执行，也丝毫不会影响动画。</p>
 <p>我们看到这里重要的是复合层，它是高效绘制的关键，将需要动画的元素提升为一个layer，即便需要repaint，也只会repaint这个layer，不会repaint整个页面。<br>以下是浏览器会提升一个元素为layer的条件：</p>
 <ul>
-<li>3d或透视变换css属性，例如translate3d,translateZ等等（js一般通过这种方式，使元素获得复合层）<video><iframe><canvas><webgl>等元素。</webgl></canvas></iframe></video></li>
+<li>3d或透视变换css属性，例如translate3d,translateZ等等（js一般通过这种方式，使元素获得复合层）<code>&lt;video&gt;&lt;iframe&gt;&lt;canvas&gt;&lt;webgl&gt;</code>等元素。</li>
 <li>混合插件（如flash）。</li>
 <li>元素自身的 opacity和transform 做 CSS 动画。</li>
 <li>拥有css过滤器的元素。</li>
@@ -456,10 +446,6 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/23/index1/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -519,8 +505,8 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
-               alt="John Doe" />
-          <p class="site-author-name" itemprop="name">John Doe</p>
+               alt="Hyde" />
+          <p class="site-author-name" itemprop="name">Hyde</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
           
@@ -530,25 +516,18 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
           
 
           
-            <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">分类</span>
-              
-            </div>
-          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -610,7 +589,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Hyde</span>
 </div>
 
 
